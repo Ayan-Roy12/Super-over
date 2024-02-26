@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Super Over</title>
+    <style>
+      body {
+        text-align: center;
+        background-image: url('https://i.pinimg.com/736x/8c/f0/93/8cf093d06bb060ff91770fcec13d2e32.jpg');
+        background-size: cover;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+      }
+      .scoreboard {
+        display: flex;
+        justify-content: space-around;
+        margin: 50px 0;
+      }
+      .team {
+        border: 2px solid white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 200px;
+        text-align: center;
+      }
+      .team h2 {
+        margin: 0;
+      }
+      .team p {
+        font-size: 2em;
+        margin: 10px 0;
+      }
+      .buttons {
+        display: flex;
+        justify-content: center;
+      }
+      .buttons button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Super Over</h1>
+    <div class="scoreboard">
+      <div class="team">
+        <h2>IND</h2>
+        <p id="indScore">0/0</p>
+      </div>
+      <div class="team">
+        <h2>PAK</h2>
+        <p id="pakScore">0/0</p>
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="updateScore('ind')">Score IND</button>
+      <button onclick="updateScore('pak')">Score PAK</button>
+    </div>
+    <script>
+      var scores = {
+        ind: { runs: 0, wickets: 0 },
+        pak: { runs: 0, wickets: 0 },
+      };
+      var updates = {
+        ind: 0,
+        pak: 0,
+      };
+      function checkWinner() {
+        if (updates.ind >= 6 && updates.pak >= 6) {
+          if (scores.ind.runs > scores.pak.runs) {
+            alert('IND is the winner!');
+          } else if (scores.pak.runs > scores.ind.runs) {
+            alert('PAK is the winner!');
+          } else {
+            alert("It's a tie!");
+          }
+        }
+      }
+
+      function updateScore(team) {
+        if (updates[team] < 6) {
+          scores[team].runs += Math.floor(Math.random() * 7);
+          if (Math.random() < 0.1) {
+            scores[team].wickets++;
+          }
+          updates[team]++;
+          document.getElementById(team + 'Score').innerText =
+            scores[team].runs + '/' + scores[team].wickets;
+          checkWinner();
+        } else {
+          alert(team.toUpperCase() + ' has reached the limit of 6 updates.');
+        }
+      }
+    </script>
+  </body>
+</html>
